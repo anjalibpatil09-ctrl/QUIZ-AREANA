@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quiz</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#000;
+color:#fff;
+}
+
+.container{
+display:flex;
+height:100vh;
+}
+
+/* LEFT SIDE */
+.left{
+width:75%;
+padding:40px;
+}
+
+.timer{
+font-size:22px;
+margin-bottom:20px;
+color:#00ffff;
+font-weight:bold;
+}
+
+.question{
+font-size:24px;
+margin-bottom:20px;
+}
+
+.options label{
+display:block;
+background:#111;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.options label:hover{
+background:#222;
+}
+
+.buttons{
+margin-top:20px;
+}
+
+button{
+padding:10px 20px;
+margin-right:10px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.prev{
+background:#444;
+color:white;
+}
+
+.next{
+background:#9333ea;
+color:white;
+}
+
+.submit{
+background:#16a34a;
+color:white;
+}
+
+/* RIGHT SIDE */
+.right{
+width:25%;
+padding:20px;
+background:#0f172a;
+}
+
+.palette{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.palette button{
+padding:10px;
+border:none;
+border-radius:5px;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* COLORS */
+.red{ background:#dc2626; }
+.green{ background:#16a34a; }
+.orange{ background:#f59e0b; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT -->
+<div class="left">
+
+<div id="timer" class="timer">Timer</div>
+
+<div id="question" class="question">Loading question...</div>
+
+<div id="options" class="options"></div>
+
+<div class="buttons">
+<button onclick="prev()" class="prev">Previous</button>
+<button onclick="next()" class="next">Next</button>
+<button onclick="submitQuiz()" class="submit">Submit</button>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+
+<h3>Questions</h3>
+<div id="palette" class="palette"></div>
+
+</div>
+
+</div>
+
+<script src="js/quiz.js"></script>
+
+</body>
+</html>

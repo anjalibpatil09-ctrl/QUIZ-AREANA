@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Student Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-black text-white">
+
+<div class="flex">
+
+<!-- Sidebar -->
+<div class="w-64 bg-gray-900 h-screen p-6">
+
+<h2 class="text-xl font-bold mb-6">Quiz Arena</h2>
+
+<a href="#" class="block mb-4">Dashboard</a>
+<a href="result.html" class="block">Overall Results</a>
+
+</div>
+
+<!-- Main Content -->
+<div class="flex-1 p-10">
+
+<h1 class="text-3xl mb-6">Student Mission Board</h1>
+
+<!-- Stats -->
+<div class="grid grid-cols-3 gap-6 mb-10">
+
+<div class="bg-gray-900 p-6 rounded">
+<p>Total Attempted</p>
+<h2 id="total" class="text-2xl">0</h2>
+</div>
+
+<div class="bg-gray-900 p-6 rounded">
+<p>Average Score</p>
+<h2 id="avg" class="text-2xl">0%</h2>
+</div>
+
+<div class="bg-gray-900 p-6 rounded">
+<p>Best Score</p>
+<h2 id="best" class="text-2xl">0%</h2>
+</div>
+
+</div>
+
+<!-- ✅ REMOVED WRONG START BUTTON -->
+
+<!-- QUIZ SECTION -->
+<div class="mt-10">
+
+<h2 class="text-xl mb-4">Today's Quizzes</h2>
+
+<div class="flex gap-4 mb-6">
+
+<select id="filterSubject" class="text-black p-2"></select>
+<select id="filterTopic" class="text-black p-2"></select>
+
+<button onclick="filterQuiz()" class="bg-purple-600 px-4 py-2 rounded">
+Filter
+</button>
+
+</div>
+
+<div id="quizList" class="space-y-4"></div>
+
+</div>
+
+<!-- Analytics -->
+<div class="bg-gray-900 p-6 rounded mt-10">
+
+<h2 class="text-xl mb-4">Performance Analytics</h2>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Dashboard Logic -->
+<script src="js/dashboard.js"></script>
+
+<script>
+const ctx = document.getElementById("chart")
+
+// create empty chart first
+const chart = new Chart(ctx,{
+type:"bar",
+data:{
+labels:[],
+datasets:[{
+  label:"Score %",
+  data:[],
+  backgroundColor:[
+    "#9333ea","#6366f1","#10b981","#f59e0b"
+  ],
+  barThickness: 180,        // 👈 controls bar width
+  maxBarThickness: 200      // 👈 optional limit
+}]
+},
+options:{
+  plugins:{legend:{labels:{color:"white"}}},
+  scales:{
+    x:{
+      ticks:{color:"white"},
+      categoryPercentage: 0.6,   // 👈 space between categories
+      barPercentage: 0.5         // 👈 bar width inside category
+    },
+    y:{ticks:{color:"white"}}
+  }
+}
+})
+
+// ✅ LOAD REAL DATA
+async function loadAnalytics(){
+let userId = localStorage.getItem("userId")
+
+if(!userId){
+alert("Login again")
+window.location="login.html"
+return
+}
+
+// SAME API AS RESULTS PAGE
+const res = await fetch("/result/overall/" + userId)
+const data = await res.json()
+
+// update chart dynamically
+chart.data.labels = data.map(r => r.topic)
+chart.data.datasets[0].data = data.map(r => r.percentage)
+
+chart.update()
+
+// also update stats
+document.getElementById("total").innerText = data.length
+
+let avg = 0
+let best = 0
+
+data.forEach(r=>{
+avg += r.percentage
+if(r.percentage > best) best = r.percentage
+})
+
+avg = data.length ? Math.round(avg/data.length) : 0
+
+document.getElementById("avg").innerText = avg + "%"
+document.getElementById("best").innerText = best + "%"
+}
+
+loadAnalytics()
+</script>
+
+</body>
+</html>

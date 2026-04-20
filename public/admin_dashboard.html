@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-black text-white">
+
+<div class="p-10">
+
+<h1 class="text-3xl mb-10">Admin Panel</h1>
+
+<div class="grid grid-cols-2 gap-8">
+
+<!-- Add Subject -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Add Subject</h2>
+
+<input id="subjectName"
+class="w-full p-2 text-black"
+placeholder="Subject name">
+
+<button onclick="addSubject()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Add
+</button>
+
+</div>
+
+
+<!-- Add Topic -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Add Topic</h2>
+
+<select id="topicSubject" class="w-full p-2 text-black bg-white rounded">
+<option value="">Select Subject</option>
+</select>
+
+
+<input id="topicName"
+class="w-full p-2 mt-2 text-black"
+placeholder="Topic name">
+
+<button onclick="addTopic()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Add
+</button>
+
+</div>
+
+
+<!-- Add Question -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Add Question</h2>
+
+<select id="questionSubject" class="w-full p-2 text-black bg-white rounded">
+<option value="">Select Subject</option>
+</select>
+
+<select id="questionTopic" class="w-full mt-2 p-2 text-black bg-white rounded">
+<option value="">Select Topic</option>
+</select>
+
+
+<textarea id="questionText"
+class="w-full mt-2 text-black"
+placeholder="Question"></textarea>
+
+<input id="opt1" class="w-full mt-2 text-black" placeholder="Option 1">
+<input id="opt2" class="w-full mt-2 text-black" placeholder="Option 2">
+<input id="opt3" class="w-full mt-2 text-black" placeholder="Option 3">
+<input id="opt4" class="w-full mt-2 text-black" placeholder="Option 4">
+
+<input id="correctOption"
+class="w-full mt-2 text-black"
+placeholder="Correct option (1-4)">
+
+<textarea id="codeSnippet"
+class="w-full mt-2 text-black"
+placeholder="Optional code snippet"></textarea>
+
+<button onclick="addQuestion()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Add Question
+</button>
+
+</div>
+
+
+<!-- Create Quiz -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Create Quiz</h2>
+
+<select id="quizSubject" class="w-full p-2 text-black bg-white rounded">
+<option value="">Select Subject</option>
+</select>
+
+
+<select id="quizTopic" class="w-full mt-2 p-2 text-black bg-white rounded">
+<option value="">Select Topic</option>
+</select>
+
+<input id="quizDuration"
+class="w-full mt-2 text-black"
+placeholder="Duration (minutes)">
+
+<input id="quizDate"
+type="date"
+class="w-full mt-2 text-black">
+
+<button onclick="createQuiz()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Create Quiz
+</button>
+
+</div>
+
+
+<!-- Manage Students -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Manage Students</h2>
+
+<input id="studentName"
+class="w-full text-black"
+placeholder="Name">
+
+<input id="studentUsername"
+class="w-full mt-2 text-black"
+placeholder="Username">
+
+<input id="studentPassword"
+class="w-full mt-2 text-black"
+placeholder="Password">
+
+<button onclick="addStudent()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Create Student
+</button>
+
+</div>
+
+
+<!-- Change Password -->
+<div class="bg-gray-900 p-6 rounded">
+
+<h2 class="mb-4">Change Password</h2>
+
+<input id="userId"
+class="w-full text-black"
+placeholder="User ID">
+
+<input id="newPassword"
+class="w-full mt-2 text-black"
+placeholder="New password">
+
+<button onclick="changePassword()"
+class="mt-4 bg-purple-600 px-4 py-2">
+Change Password
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>

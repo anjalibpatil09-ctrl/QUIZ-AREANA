@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Overall Results</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-black text-white p-10">
+
+<h1 class="text-3xl mb-6">Overall Results</h1>
+
+<table class="w-full bg-gray-900 rounded text-center">
+<thead class="bg-gray-800">
+<tr>
+<th class="p-3 text-center">Subject</th>
+<th class="p-3 text-center">Topic</th>
+<th class="p-3 text-center">Marks</th>
+<th class="p-3 text-center">Percentage</th>
+</tr>
+</thead>
+
+<tbody id="results"></tbody>
+
+</table>
+
+<script>
+async function loadResults(){
+
+let userId = localStorage.getItem("userId")
+
+if(!userId){
+alert("Please login again")
+window.location = "login.html"
+return
+}
+
+const res = await fetch("/result/overall/" + userId)
+const data = await res.json()
+
+let html=""
+
+data.forEach(r=>{
+html+=`
+<tr class="border-t border-gray-700 text-center">
+<td class="p-3">${r.subject}</td>
+<td class="p-3">${r.topic}</td>
+<td class="p-3">${r.score}</td>
+<td class="p-3">${r.percentage}%</td>
+</tr>
+`
+})
+
+document.getElementById("results").innerHTML=html
+}
+
+loadResults()
+</script>
+
+</body>
+</html>

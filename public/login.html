@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Quiz Arena Login</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-black text-white flex items-center justify-center h-screen">
+
+<div class="bg-gray-900 p-10 rounded-xl w-96">
+
+<h2 class="text-2xl mb-6 font-bold">Sign In</h2>
+
+<input id="username" placeholder="Username"
+class="w-full p-2 mb-4 bg-gray-800 rounded">
+
+<input id="password" type="password" placeholder="Password"
+class="w-full p-2 mb-4 bg-gray-800 rounded">
+
+<button onclick="login()"
+class="w-full bg-purple-600 p-2 rounded hover:bg-purple-700">
+Login
+</button>
+
+<p class="mt-4 text-sm">
+New user?
+<a href="register.html" class="text-blue-400">Register</a>
+</p>
+
+</div>
+
+<script>
+async function login(){
+
+const username=document.getElementById("username").value
+const password=document.getElementById("password").value
+
+const res=await fetch("/auth/login",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({username,password})
+})
+
+const data=await res.json()
+
+if(data.error){
+alert("Invalid Login")
+return
+}
+
+// 🔥 FIX: store user id
+localStorage.setItem("userId",data.id)
+
+if(data.role==="student"){
+localStorage.setItem("userId", data.id)   // 🔥 IMPORTANT
+window.location="student_dashboard.html"
+}
+
+else if(data.role==="admin"){
+localStorage.setItem("userId", data.id)   // optional
+window.location="admin_dashboard.html"
+}
+}
+</script>
+
+</body>
+</html>
